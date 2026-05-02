@@ -1,3 +1,4 @@
+'use client'
 import { CustomerField } from "@/app/lib/definitions";
 import Link from "next/link";
 import {
@@ -8,10 +9,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { Button } from "@/app/ui/button";
 import { createInvoice } from "@/app/lib/actions";
+import { useActionState } from "react";
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
+  const [state, formAction, pending] = useActionState(createInvoice, {message: ""})
   return (
-    <form action={createInvoice}>
+    <form action={formAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
@@ -98,6 +101,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             </div>
           </div>
         </fieldset>
+        {state?.message && <p className='p-4 bg-red-300 rounded-lg mt-4' aria-live="polite">{state.message}</p>}
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <Link
