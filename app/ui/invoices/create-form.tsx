@@ -10,6 +10,7 @@ import {
 import { Button } from "@/app/ui/button";
 import { createInvoice, State } from "@/app/lib/actions";
 import { useActionState } from "react";
+import { fetchCustomers } from "@/app/lib/data";
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const intitalState: State = { message: null, errors: {} };
